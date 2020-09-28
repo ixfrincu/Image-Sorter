@@ -48,6 +48,24 @@ for xfile in os.listdir():
             continue
         except:
             continue
+    elif filename.split('.')[1].lower() in videoFormats:
+        parser = createParser(filename)
+        if not parser:
+            continue
+        with parser:
+            try:
+                metadata = extractMetadata(parser)
+            except Exception as err:
+                metadata = None
+        if not metadata:
+            continue
+        for line in metadata.exportPlaintext():
+            if line.spli(':')[0] == ' - Creation date':
+                dateobj = datetime.datetime.strptime(line.split(':')[1].split[0], "%Y-%m-%d")
+                month = months.get(f'{dateobj.month}')
+                dirpath = f'{dateobj.year}/{month}/{dateobj.day}'
+                os.makedirs(dirpath, exist_ok=True)
+                os.rename(filename, dirpath + filename)
    
 
 
