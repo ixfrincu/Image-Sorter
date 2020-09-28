@@ -27,7 +27,7 @@ months = {
 
 for xfile in os.listdir():
     filename = os.fsdecode(xfile)
-    print(f'Processing ${filename}...')
+    print(f'Processing {filename}...')
     name = filename.split('.')[0]
     if os.path.isdir(filename):
         continue
@@ -66,16 +66,3 @@ for xfile in os.listdir():
                 dirpath = f'{dateobj.year}/{month}/{dateobj.day}'
                 os.makedirs(dirpath, exist_ok=True)
                 os.rename(filename, dirpath + filename)
-   
-
-
-
-
-
-
-
-
-
-
-
-
