@@ -46,7 +46,8 @@ for xfile in os.listdir():
                 os.makedirs(dirpath, exist_ok=True)
                 os.rename(filename, dirpath + filename)
             continue
-        except:
+        except Exception as err:
+            print(err)
             continue
     elif filename.split('.')[1].lower() in videoFormats:
         parser = createParser(filename)
@@ -56,6 +57,7 @@ for xfile in os.listdir():
             try:
                 metadata = extractMetadata(parser)
             except Exception as err:
+                print(err)
                 metadata = None
         if not metadata:
             continue
