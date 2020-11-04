@@ -4,6 +4,7 @@ from PIL import Image
 from PIL.ExifTags import TAGS
 from hachoir.parser import createParser
 from hachoir.metadata import extractMetadata
+from re import search
 
 date_time_tag = 36867
 
@@ -24,6 +25,9 @@ months = {
     "11": "11.Noiembrie",
     "12": "12.Decembrie"
 }
+
+# to be replaced
+os.chdir('C:\\Users\\Ionut\\Desktop\\imgsort\\files')
 
 for xfile in os.listdir():
     filename = os.fsdecode(xfile)
@@ -62,9 +66,12 @@ for xfile in os.listdir():
         if not metadata:
             continue
         for line in metadata.exportPlaintext():
-            if line.split(':')[0] == ' - Creation date':
+            toSearch = line.split(':')[0]
+            info = line.split(':')[1]
+            splitted = info.split()
+            if search('Creation', toSearch):
                 dateobj = datetime.datetime.strptime(
-                    line.split(':')[1].split[0], "%Y-%m-%d")
+                    splitted[0], "%Y-%m-%d")
                 month = months.get(f'{dateobj.month}')
                 dirpath = f'{dateobj.year}/{month}/{dateobj.day}/'
                 os.makedirs(dirpath, exist_ok=True)
