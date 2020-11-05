@@ -46,7 +46,7 @@ for xfile in os.listdir():
                 datestr = exif[date_time_tag].split()
                 dateobj = datetime.datetime.strptime(datestr[0], "%Y:%m:%d")
                 month = months.get(f'{dateobj.month}')
-                dirpath = f'{dateobj.year}/{month}/{dateobj.day}/'
+                dirpath = f'{dateobj.year}/{month}/{dateobj.day}.{dateobj.month}.{dateobj.year}/'
                 os.makedirs(dirpath, exist_ok=True)
                 os.rename(filename, dirpath + filename)
             continue
